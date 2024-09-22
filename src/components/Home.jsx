@@ -1,25 +1,31 @@
 import React from "react";
+import SecondScreen from "./SecondScreen";
+import WeatherDetails from "./WeatherDetails";
+import ForcastComponent from "./ForcastComponent";
+import ModalComponent from "./Modal";
+import Navbar from "./Navbar";
 
 const Home = () => {
   return (
-    <div className="w-full">
-      <div className="flex justify-between">
-        <span>Delhi</span>
-        <span>21.04.2024</span>
-      </div>
-      <div className="flex-row">
-        <div className="flex">
-          <h1 className="text-9xl">20</h1>
-          <div className="pt-16">
-            <h6>6.1mph</h6>
-            <h6>90%</h6>
+    <div className="flex">
+      <div className="w-full h-dvh p-6">
+        <Navbar />
+        <div className="h-full flex justify-center items-center">
+          <div className="flex flex-col justify-center items-center">
+            <WeatherDetails />
+            <div className="pt-6 flex gap-3">
+              <ForcastComponent enableBorder={true} />
+              <ForcastComponent />
+              <ForcastComponent />
+              <ForcastComponent />
+              <ForcastComponent />
+              <ForcastComponent />
+            </div>
           </div>
-        </div>
-        <div>
-          {/* <h6>Feels like 19</h6> */}
-          <h2 className="text-3xl">Cloudy</h2>
+          <ModalComponent />
         </div>
       </div>
+      <SecondScreen />
     </div>
   );
 };
