@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FiWind } from "react-icons/fi";
-import { BsDroplet } from "react-icons/bs";
 import { State } from "../Context/globalState";
 
 const WeatherDetails = ({ size }) => {
@@ -40,14 +38,6 @@ const WeatherDetails = ({ size }) => {
             />
           )}
           <h6 className="text-center text-2xl">{current?.condition?.text}</h6>
-          {/* <h6 className={`flex items-center gap-1 ${size ? "text-sm" : ""}`}>
-            <FiWind />
-            {wind?.speed} mph
-          </h6>
-          <h6 className={`flex items-center gap-1 ${size ? "text-sm" : ""}`}>
-            <BsDroplet />
-            {temperature?.humidity}%
-          </h6> */}
         </div>
       </div>
       <div className="">

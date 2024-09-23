@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ForcastComponent from "./ForcastComponent";
 import { getCurrentWeatherForcast } from "../utils/API";
+import Loader from "./loader";
 
 const ForcastMainComponent = ({ city }) => {
   const [data, setData] = useState([]);
@@ -23,6 +24,9 @@ const ForcastMainComponent = ({ city }) => {
   useEffect(() => {
     GetForcastFiveDay();
   }, [city]);
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className="w-full md:w-fit">
       <h4 className="font-medium pt-6 pb-3">
