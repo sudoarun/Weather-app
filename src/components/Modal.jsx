@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Modal } from "antd";
 import { State } from "../Context/globalState";
-const ModalComponent = () => {
+const ModalComponent = ({ search, setSearch }) => {
   const state = useContext(State);
-  const [search, setSearch] = useState("");
 
   const handleCancel = () => {
     state.setGlobalState((prev) => ({ ...prev, isModelOpen: false }));
+    setSearch("");
   };
 
   return (

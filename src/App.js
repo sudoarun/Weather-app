@@ -7,6 +7,7 @@ function App() {
   const [globalState, setGlobalState] = useState({
     isModelOpen: false,
     location: "",
+    currentWeather: {},
   });
 
   return (

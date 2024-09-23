@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import { State } from "../Context/globalState";
 
-const Navbar = () => {
+const Navbar = ({ data }) => {
+  const { location } = data;
   const state = useContext(State);
   const HandleModal = () => {
     state.setGlobalState((prev) => ({
@@ -22,10 +23,11 @@ const Navbar = () => {
   useEffect(() => {
     getDate();
   }, []);
-
   return (
     <div className="flex justify-between items-center">
-      <span className="font-medium">Delhi</span>
+      <span className="font-medium">
+        {data?.city}, {data?.country}
+      </span>
       <span
         className="border rounded-full p-2 cursor-pointer hover:bg-gray-200"
         onClick={HandleModal}
