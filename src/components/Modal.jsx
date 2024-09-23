@@ -1,12 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Modal } from "antd";
 import { State } from "../Context/globalState";
 const ModalComponent = ({ search, setSearch }) => {
   const state = useContext(State);
+  const [value, setValue] = useState("");
 
   const handleCancel = () => {
     state.setGlobalState((prev) => ({ ...prev, isModelOpen: false }));
-    setSearch("");
+    setValue("");
+  };
+  const onSearchSubmit = (e) => {
+    e.preventDefault();
+    setSearch(value);
+    handleCancel();
   };
 
   return (
@@ -17,12 +23,20 @@ const ModalComponent = ({ search, setSearch }) => {
         closeIcon={false}
         onCancel={handleCancel}
       >
-        <input
-          placeholder="Enter Location"
-          value={search}
-          className="w-full mt-3 outline-none"
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <form className="flex items-center" onSubmit={onSearchSubmit}>
+          <input
+            placeholder="Enter Location"
+            value={value}
+            className="w-full mt-3 outline-none"
+            onChange={(e) => setValue(e.target.value)}
+          />
+          <button
+            className="bg-green-500 text-white px-2 py-1 mt-3 rounded-lg hover:bg-green-600 cursor-pointer"
+            type="submit"
+          >
+            Search
+          </button>
+        </form>
       </Modal>
     </>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ForcastComponent from "./ForcastComponent";
-import { getCurrentWeatherForcast, GetFiveDayForcast } from "../utils/API";
+import { getCurrentWeatherForcast } from "../utils/API";
 
 const ForcastMainComponent = ({ city }) => {
   const [data, setData] = useState([]);
@@ -27,10 +27,15 @@ const ForcastMainComponent = ({ city }) => {
     return () => clearTimeout(time);
   }, [city]);
   return (
-    <div className="pt-6 flex gap-3">
-      {data?.map((el) => (
-        <ForcastComponent data={el} key={el.time} />
-      ))}
+    <div className="w-full md:w-fit">
+      <h4 className="font-medium pt-6 pb-3">
+        Weekly <span className="underline">Forcast</span>
+      </h4>
+      <div className=" flex gap-3 overflow-x-scroll md:overscroll-none w-full md:w-fit">
+        {data?.map((el) => (
+          <ForcastComponent data={el} key={el.time} enableBorder={true} />
+        ))}
+      </div>
     </div>
   );
 };

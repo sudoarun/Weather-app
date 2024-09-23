@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import { State } from "../Context/globalState";
 
-const Navbar = ({ data }) => {
-  const { location } = data;
+const Navbar = () => {
   const state = useContext(State);
+  const { city, country } = state.globalState.currentWeather;
   const HandleModal = () => {
     state.setGlobalState((prev) => ({
       ...prev,
@@ -12,7 +12,10 @@ const Navbar = ({ data }) => {
     }));
   };
   const [date, setDate] = useState("");
+  const [error, setError] = useState("");
+
   const getDate = () => {
+    //setup current date
     const date = new Date();
     const day = date.getDate();
     const month = date.getMonth();
@@ -20,20 +23,43 @@ const Navbar = ({ data }) => {
     let fullDate = `${day}.${month + 1}.${year}`;
     return setDate(fullDate);
   };
+
+  const getLocation = () => {
+    //get User geoLocation
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          let mergeLocation = `${position.coords.latitude},${position.coords.longitude}`;
+
+          state.setGlobalState((prev) => ({
+            ...prev,
+            location: mergeLocation,
+          }));
+        },
+        (err) => {
+          setError(err.message);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
+  };
+
   useEffect(() => {
     getDate();
+    getLocation();
   }, []);
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center pb-2">
       <span className="font-medium">
-        {data?.city}, {data?.country}
+        {city}, {country}
       </span>
-      <span
-        className="border rounded-full p-2 cursor-pointer hover:bg-gray-200"
+      <button
+        className="border rounded-full p-2 cursor-pointer hover:bg-gray-200 hover:text-black"
         onClick={HandleModal}
       >
         <FaLocationDot />
-      </span>
+      </button>
       <span className="font-medium">{date}</span>
     </div>
   );

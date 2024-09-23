@@ -10,19 +10,23 @@ const WeatherDetails = ({ size }) => {
   return (
     <div className="flex-row">
       <div className="flex">
-        <h1 className={`${size ? "text-6xl" : "text-9xl"} relative`}>
+        <h1 className={`${"text-9xl"} relative`}>
           {Math.round(temperature?.current)}
           <span>°</span>
         </h1>
-        <div className={`${size ? "pt-2 ps-2" : "pt-16"}`}>
-          <h6 className={`flex items-center gap-1 ${size ? "text-sm" : ""}`}>
+        <div className={``}>
+          {condition?.icon_url && (
+            <img src={condition?.icon_url} alt={condition.description} />
+          )}
+          <h6 className="text-center text-2xl">{condition?.description}</h6>
+          {/* <h6 className={`flex items-center gap-1 ${size ? "text-sm" : ""}`}>
             <FiWind />
             {wind?.speed} mph
           </h6>
           <h6 className={`flex items-center gap-1 ${size ? "text-sm" : ""}`}>
             <BsDroplet />
             {temperature?.humidity}%
-          </h6>
+          </h6> */}
         </div>
       </div>
       <div className="">
@@ -30,9 +34,6 @@ const WeatherDetails = ({ size }) => {
           Feels like {temperature?.feels_like}
           <span>°</span>
         </h6>
-        <h2 className={`${size ? "text-xl" : "text-3xl"} text-center`}>
-          {condition?.description}
-        </h2>
       </div>
     </div>
   );
