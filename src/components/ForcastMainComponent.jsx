@@ -13,7 +13,7 @@ const ForcastMainComponent = ({ city }) => {
         throw new Error("Network response was not ok");
       }
       const result = await response.json();
-      setData(result.daily);
+      setData(result.forecast.forecastday);
     } catch (error) {
       setError(error);
     } finally {
@@ -21,19 +21,16 @@ const ForcastMainComponent = ({ city }) => {
     }
   };
   useEffect(() => {
-    const time = setTimeout(() => {
-      GetForcastFiveDay();
-    }, 600);
-    return () => clearTimeout(time);
+    GetForcastFiveDay();
   }, [city]);
   return (
     <div className="w-full md:w-fit">
       <h4 className="font-medium pt-6 pb-3">
         Weekly <span className="underline">Forcast</span>
       </h4>
-      <div className=" flex gap-3 overflow-x-scroll md:overscroll-none w-full md:w-fit">
+      <div className=" flex gap-3 w-full md:w-fit p-1 md:p-2 overflow-scroll md:overflow-hidden">
         {data?.map((el) => (
-          <ForcastComponent data={el} key={el.time} enableBorder={true} />
+          <ForcastComponent data={el} key={el.date_epoch} enableBorder={true} />
         ))}
       </div>
     </div>

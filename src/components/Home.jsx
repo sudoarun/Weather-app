@@ -5,17 +5,19 @@ import Navbar from "./Navbar";
 import { getCurrentWeather } from "../utils/API";
 import { State } from "../Context/globalState";
 import ForcastMainComponent from "./ForcastMainComponent";
+import Loader from "./loader";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
   const [videoURL, setVideoURL] = useState("");
-  const [city, setCity] = useState("Delhi");
+  const [city, setCity] = useState("faridabad");
   const state = useContext(State);
   const checkWeather = (weather) => {
     const weatherVideos = {
       clear: "/clear-sky.mp4",
+      sunny: "/clear-sky.mp4",
       cloudy: "/cloudy-sky.mp4",
       scattered: "/cloudy-sky.mp4",
       rain: "/rain-sky.mp4",
@@ -40,7 +42,7 @@ const Home = () => {
       }
       const result = await response.json();
       state.setGlobalState((prev) => ({ ...prev, currentWeather: result }));
-      checkWeather(result?.condition.icon);
+      checkWeather(result?.current?.condition.text.toLowerCase());
     } catch (error) {
       setError(error);
     } finally {
@@ -55,11 +57,16 @@ const Home = () => {
     if (search) {
       setCity(search);
       return;
+    } else if (state?.globalState?.location) {
+      setCity(state?.globalState?.location);
     }
   }, [search]);
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className="flex relative justify-center items-center h-dvh text-white">
-      <div className=" p-10 md:p-16 blur-bg w-full sm:w-fit">
+      <div className=" p-5 md:p-16 blur-bg w-full sm:w-fit">
         <Navbar />
         <div className="h-full flex justify-center items-center">
           <div className="flex flex-col justify-center items-center w-full md:w-fit">

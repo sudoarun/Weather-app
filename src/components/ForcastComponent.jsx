@@ -12,17 +12,18 @@ const ForcastComponent = ({ enableBorder, data }) => {
         enableBorder ? "outline" : "hover:outline"
       }`}
     >
-      <h6 className="font-medium">{formatDay(data?.time)}</h6>
-      {data?.condition?.icon_url && (
-        <img
-          className="day-icon"
-          src={data?.condition?.icon_url}
-          alt={data?.condition?.description}
-        />
-      )}
+      <h6 className="font-medium">{formatDay(data?.date_epoch)}</h6>
+      <div className="flex justify-center">
+        {data?.day?.condition?.icon && (
+          <img
+            src={`https:${data?.day?.condition?.icon}`}
+            alt={data?.day?.condition?.text}
+          />
+        )}
+      </div>
       <h6 className="text-xl py-3">
-        {Math.round(data?.temperature?.minimum)}
-        <span>°</span>/ <span>{Math.round(data?.temperature?.maximum)}°</span>
+        {Math.round(data?.day?.maxtemp_c)}
+        <span>°</span>/ <span>{Math.round(data?.day?.mintemp_c)}°</span>
       </h6>
     </div>
   );

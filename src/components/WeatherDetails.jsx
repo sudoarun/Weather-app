@@ -1,24 +1,45 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FiWind } from "react-icons/fi";
 import { BsDroplet } from "react-icons/bs";
 import { State } from "../Context/globalState";
 
 const WeatherDetails = ({ size }) => {
   const state = useContext(State);
-  const { temperature, condition, wind } = state.globalState?.currentWeather;
-
+  const { current } = state.globalState?.currentWeather;
+  const [converted, setConverted] = useState(false);
+  const [value, setvalue] = useState("");
+  const handleCalculation = () => {
+    if (converted) {
+      let c = ((current?.temp_c - 32) * 5) / 9;
+      setvalue(c);
+      setConverted(false);
+      return;
+    }
+    let f = (current?.temp_c * 9) / 5 + 32;
+    setvalue(Math.round(f));
+    setConverted(true);
+  };
+  useEffect(() => {
+    setvalue("");
+  }, [state]);
   return (
     <div className="flex-row">
-      <div className="flex">
-        <h1 className={`${"text-9xl"} relative`}>
-          {Math.round(temperature?.current)}
+      <div className="flex items-center">
+        <h1
+          className={`${"text-9xl"} relative cursor-pointer`}
+          onClick={handleCalculation}
+        >
+          {converted ? value : Math.round(current?.temp_c)}
           <span>°</span>
         </h1>
         <div className={``}>
-          {condition?.icon_url && (
-            <img src={condition?.icon_url} alt={condition.description} />
+          {current?.condition?.icon && (
+            <img
+              src={`https:${current?.condition?.icon}`}
+              alt={current?.condition?.text}
+            />
           )}
-          <h6 className="text-center text-2xl">{condition?.description}</h6>
+          <h6 className="text-center text-2xl">{current?.condition?.text}</h6>
           {/* <h6 className={`flex items-center gap-1 ${size ? "text-sm" : ""}`}>
             <FiWind />
             {wind?.speed} mph
@@ -30,9 +51,8 @@ const WeatherDetails = ({ size }) => {
         </div>
       </div>
       <div className="">
-        <h6 className={`${size ? "text-center text-sm py-2" : "hidden"}`}>
-          Feels like {temperature?.feels_like}
-          <span>°</span>
+        <h6 className={`text-center`}>
+          {converted ? "fahrenheit " : "celsius"}
         </h6>
       </div>
     </div>

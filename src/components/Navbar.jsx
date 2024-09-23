@@ -4,7 +4,7 @@ import { State } from "../Context/globalState";
 
 const Navbar = () => {
   const state = useContext(State);
-  const { city, country } = state.globalState.currentWeather;
+  const { location } = state.globalState.currentWeather;
   const HandleModal = () => {
     state.setGlobalState((prev) => ({
       ...prev,
@@ -52,7 +52,7 @@ const Navbar = () => {
   return (
     <div className="flex justify-between items-center pb-2">
       <span className="font-medium">
-        {city}, {country}
+        {location?.name}, {location?.country}
       </span>
       <button
         className="border rounded-full p-2 cursor-pointer hover:bg-gray-200 hover:text-black"
