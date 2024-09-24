@@ -2,7 +2,7 @@
 
 <h6>This Project is Created by Arun Thakur, <a href="https://github.com/sudoarun">Github link</a></h6>
 <h4>Convert celsius to fahrenheit<h4>
-<p>To convert celsius to fahrenheit and vice versa, Just click on Temperature</p>
+<li>To convert celsius to fahrenheit and vice versa, Just click on Temperature</li>
 <h4>How to start this app</h1>
 <li>npm install - to install all packages</li>
 <li>npm start - to start local server</li>
