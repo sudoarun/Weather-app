@@ -59,7 +59,7 @@ const ModalComponent = ({ search, setSearch }) => {
           </button>
         </form>
         {value && (
-          <ul className="flex-row gap-2 mt-2 h-[200px] overflow-y-scroll cursor-pointer">
+          <ul className="flex-row gap-2 mt-2 h-[200px] overflow-y-scroll cursor-pointer text-black">
             {cities?.map((el) => (
               <li
                 key={el?.geonameId}

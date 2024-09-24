@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { State } from "../Context/globalState";
 
-const WeatherDetails = ({ size }) => {
+const WeatherDetails = () => {
   const state = useContext(State);
   const { current } = state.globalState?.currentWeather;
   const [converted, setConverted] = useState(false);
@@ -17,9 +17,7 @@ const WeatherDetails = ({ size }) => {
     setvalue(Math.round(f));
     setConverted(true);
   };
-  useEffect(() => {
-    setvalue("");
-  }, [state]);
+
   return (
     <div className="flex-row">
       <div className="flex items-center">
