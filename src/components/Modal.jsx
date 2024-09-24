@@ -21,7 +21,7 @@ const ModalComponent = ({ search, setSearch }) => {
     try {
       let response = await fetchLocationAPI(value);
       const result = await response.json();
-      setCities(result.geonames);
+      setCities(result.data);
     } catch (error) {
       console.log(error);
     }
@@ -33,7 +33,7 @@ const ModalComponent = ({ search, setSearch }) => {
     }
     let TimeOut = setTimeout(() => {
       fetchCity();
-    }, 200);
+    }, 300);
     return () => clearTimeout(TimeOut);
   }, [value]);
   return (
@@ -62,7 +62,7 @@ const ModalComponent = ({ search, setSearch }) => {
           <ul className="flex-row gap-2 mt-2 h-[200px] overflow-y-scroll cursor-pointer text-black">
             {cities?.map((el) => (
               <li
-                key={el?.geonameId}
+                key={el?.id}
                 className="bg-gray-50 hover:bg-gray-100 py-1 my-1 px-2"
                 onClick={() => {
                   let location = `${el?.name},${el?.countryCode}`;

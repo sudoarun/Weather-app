@@ -11,7 +11,15 @@ export const getCurrentWeatherForcast = async (city, days) => {
   );
 };
 export const fetchLocationAPI = (city) => {
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": "9458e9a060msh94ba37abb40daf3p199152jsn9274bdb88648",
+      "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
+    },
+  };
   return fetch(
-    `http://api.geonames.org/searchJSON?q=${city}&maxRows=10&username=okayUser`
+    `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${city}`,
+    options
   );
 };
